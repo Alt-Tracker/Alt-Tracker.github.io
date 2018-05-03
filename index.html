@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="keywords" content="footer, links, icons" />
+
+    <meta charset="UTF-8">
+
+    <title>Alt Tracker</title>
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.9/css/all.css" integrity="sha384-5SOiIsAziJl6AWe0HWRKTXlfcSHKmYV4RBF18PPJ173Kzn7jzMyFuTtk8JA7QQG1" crossorigin="anonymous">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
+
+    <link rel="stylesheet" href="bower_components/chartist/dist/chartist.min.css">
+
+    <link rel="stylesheet" href="index.css">
+    
+    <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css">
+
+</head>
+
+<nav>
+
+    <div><a href="index.html"><img src="images/logo.png"alt="Site Logo"></a></div>
+
+    <ul class="horizontal">
+        <li><a href="index.html"><span class="fa fa-balance-scale"></span> Buy/Sell</a></li>
+        <li><a href="coin_list.html"><span class="fas fa-chart-line"></span> Coin List</a></li>
+        <li><a href="exchanges.html"><span class="fab fa-bitcoin"></span> Exchanges</a></li>
+    </ul>
+    
+
+</nav>
+
+<body>
+
+
+<table id="table" class = "hidden">
+    <tr>
+        <th>Rank</th>
+        <th>Name</th>
+        <th>Price</th>
+        <th>Market Cap</th>
+        <th>Volume (1hr)</th>
+        <th>% Change (1hr)</th>
+    </tr>
+
+</table>
+
+
+<script>
+
+$.getJSON('https://api.coinmarketcap.com/v1/ticker/?convert=AUD&limit=10', function(data){
+
+    var repetitions = 10;
+    var selection = 0;
+
+
+    for (var count = 1; count <= repetitions; count++) {
+        var currency = (data[selection]);
+        var name = currency.name;
+        var price = currency.price_aud;
+        var rank = currency.rank;
+        var marketCap = currency.market_cap_aud;
+        var volume = currency.volume_aud;
+        var percent_change_1h = currency.percent_change_1h;
+
+
+        var table = " ";
+
+        table += "<tr><td>"+rank+"</td><td>"+name+"</td><td>"+price+"</td><td>"+marketCap+"</td><td>"+volume+"</td><td>"+percent_change_1h+"</td>";
+
+        $("#table").append(table).removeClass("hidden");
+
+        //console.log(data);
+
+        selection++;
+
+        
+
+    }
+
+});
+
+</script>
+
+        <footer class="footer-distributed">
+
+            <div class="footer-right">
+
+                <a href="#"><i class="fa fa-facebook"></i></a>
+                <a href="#"><i class="fa fa-twitter"></i></a>
+                <a href="#"><i class="fa fa-linkedin"></i></a>
+                <a href="#"><i class="fa fa-github"></i></a>
+
+            </div>
+            
+            <div class="footer-center">
+
+
+                <ul id="bar" class = "hidden">
+                    <li></li>  
+                    <li> </li>
+                </ul>
+
+            </div>
+
+            <div class="footer-left">
+
+                <p class="footer-links">
+                    <a href="index.html">| Home  </a>
+                    
+                    <a href="#"> | Blog  </a>
+                    
+                    <a href="#"> | About | </a>
+                    
+                </p>
+
+                <p><span class="fab fa-d-and-d"></span>Angus C</p>
+            </div>
+
+            <script>
+            $.getJSON('https://api.coinmarketcap.com/v1/global/?convert=AUD', function(data){
+
+            console.log(data.active_assets);
+            console.log(data.active_markets);
+
+            var active_markets = data.active_markets;
+            var active_assets = data.active_assets;
+
+            var bar = " ";
+
+            bar += "<ul><li>"+"Active Markets: "+active_markets+"</li><li>"+ "Active Assets: "+active_assets+"</li>";
+
+            $("#bar").append(bar).removeClass("hidden");
+
+
+            });
+
+            </script>
+
+        </footer>
+
+    </body>
+
+</html>

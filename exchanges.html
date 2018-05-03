@@ -1,0 +1,137 @@
+<!doctype html>
+<html>
+
+
+<head>
+<meta charset="UTF-8">
+
+<title>Alt Tracker</title>
+
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.9/css/all.css" integrity="sha384-5SOiIsAziJl6AWe0HWRKTXlfcSHKmYV4RBF18PPJ173Kzn7jzMyFuTtk8JA7QQG1" crossorigin="anonymous">
+<link href="index.css" rel="stylesheet" type="text/css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
+<link rel="stylesheet" href="bower_components/chartist/dist/chartist.min.css">
+
+<link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css">
+
+<link rel="stylesheet" href="bower_components/chartist/dist/chartist.min.css">
+
+<link rel="stylesheet" href="bower_components/chartist/dist/chartist.min.css">
+</head>
+
+<nav>
+
+	<div><img src="images/logo.png"></div>
+
+	<ul class="horizontal">
+  		<li><a href="index.html"><span class="fa fa-balance-scale"></span> Buy/Sell</a></li>
+  		<li><a href="coin_list.html"><span class="fas fa-chart-line"></span> Coin List</a></li>
+  		<li><a href="exchanges.html"><span class="fab fa-bitcoin"></span> Exchanges</a></li>
+	</ul>
+	
+
+</nav>
+
+<body>
+
+
+<table id="table" class = "hidden">
+	<tr>
+		<th>Active Markets</th>
+		<th>Active Assets</th>
+		<th>Active Currencies</th>
+	</tr>
+
+</table>
+
+
+<script>
+
+$.getJSON('https://api.coinmarketcap.com/v1/global/?convert=AUD', function(data){
+
+	console.log(data.active_assets);
+
+
+	var active_markets = data.active_markets;
+	var active_assets = data.active_assets;
+	var active_currencies = data.active_currencies
+
+
+
+	var table = " ";
+
+	table += "<tr><td>"+active_markets+"</td><td>"+active_assets+"</td><td>"+active_currencies+"</td>";
+
+	$("#table").append(table).removeClass("hidden");
+
+
+});
+
+</script>
+
+
+</body>
+
+<footer class="footer-distributed">
+	
+	<div class="footer-right">
+
+        <a href="#"><i class="fa fa-facebook"></i></a>
+        <a href="#"><i class="fa fa-twitter"></i></a>
+        <a href="#"><i class="fa fa-linkedin"></i></a>
+        <a href="#"><i class="fa fa-github"></i></a>
+
+    </div>
+            
+    <div class="footer-center">
+
+
+        <ul id="bar" class = "hidden">
+            <li></li>  
+            <li> </li>
+         </ul>
+
+    </div>
+
+    <div class="footer-left">
+
+        <p class="footer-links">
+            <a href="index.html">| Home  </a>
+                    
+            <a href="https://wordpress.as.edu.au/acornall/category/ip-yr-12/"> | Blog  </a>
+                    
+            <a href="#"> | About | </a>
+                    
+        </p>
+
+        <p><span class="fab fa-d-and-d"></span>Angus</p>
+
+    </div>
+
+        <script>
+            $.getJSON('https://api.coinmarketcap.com/v1/global/?convert=AUD', function(data){
+
+            console.log(data.active_assets);
+            console.log(data.active_markets);
+
+            var active_markets = data.active_markets;
+            var active_assets = data.active_assets;
+
+            var bar = " ";
+
+            bar += "<ul><li>"+"Active Markets: "+active_markets+"</li><li>"+ "Active Assets: "+active_assets+"</li>";
+
+            $("#bar").append(bar).removeClass("hidden");
+
+
+            });
+
+        </script>
+
+</footer>
+
+</html>
+
+

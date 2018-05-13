@@ -40,15 +40,30 @@
 
 <body>
 
+    <h1>Rising <span class="fas fa-caret-up"></span></h1>
 
-<table id="table" class = "hidden">
+<table id="table_rising" class = "hidden">
     <tr>
         <th>Rank</th>
         <th>Name</th>
         <th>Price</th>
         <th>Market Cap</th>
         <th>Volume (1hr)</th>
-        <th>% Change (1hr)</th>
+        <th>% Change (1hr) <span class="fas fa-caret-up"></span><span class="fas fa-caret-down"></span></th>
+    </tr>
+
+</table>
+
+    <h1>Falling <span class="fas fa-caret-down"></span></h1>
+
+<table id="table_falling" class = "hidden">
+    <tr>
+        <th>Rank</th>
+        <th>Name</th>
+        <th>Price</th>
+        <th>Market Cap</th>
+        <th>Volume (1hr)</th>
+        <th>% Change (1hr) <span class="fas fa-caret-up"></span><span class="fas fa-caret-down"></span></th>
     </tr>
 
 </table>
@@ -56,9 +71,9 @@
 
 <script>
 
-$.getJSON('https://api.coinmarketcap.com/v1/ticker/?convert=AUD&limit=10', function(data){
+$.getJSON('https://api.coinmarketcap.com/v1/ticker/?convert=AUD&limit=100', function(data){
 
-    var repetitions = 10;
+    var repetitions = 100;
     var selection = 0;
 
 
@@ -71,26 +86,48 @@ $.getJSON('https://api.coinmarketcap.com/v1/ticker/?convert=AUD&limit=10', funct
         var volume = currency.volume_aud;
         var percent_change_1h = currency.percent_change_1h;
 
+        selection++;
+
+    if (percent_change_1h >= 0) {       //risng
+        console.log(percent_change_1h);
+
+        var name = currency.name;
+        var price = currency.price_aud;
+        var rank = currency.rank;
+        var marketCap = currency.market_cap_aud;
+        var volume = currency.volume_aud;
+        var percent_change_1h = currency.percent_change_1h;
 
         var table = " ";
 
         table += "<tr><td>"+rank+"</td><td>"+name+"</td><td>"+price+"</td><td>"+marketCap+"</td><td>"+volume+"</td><td>"+percent_change_1h+"</td>";
 
-        $("#table").append(table).removeClass("hidden");
+        $("#table_rising").append(table).removeClass("hidden");
+    }; 
 
-        //console.log(data);
+    if (percent_change_1h < 0) {    //falling
 
-        selection++;
+        var name = currency.name;
+        var price = currency.price_aud;
+        var rank = currency.rank;
+        var marketCap = currency.market_cap_aud;
+        var volume = currency.volume_aud;
+        var percent_change_1h = currency.percent_change_1h;
 
-        
+        var table = " ";
 
-    }
+        table += "<tr><td>"+rank+"</td><td>"+name+"</td><td>"+price+"</td><td>"+marketCap+"</td><td>"+volume+"</td><td>"+percent_change_1h+"</td>";
+
+        $("#table_falling").append(table).removeClass("hidden");
+
+        }
+    };
 
 });
 
 </script>
 
-        <footer class="footer-distributed">
+        <footer class="footer-distributed" align="bottom">
 
             <div class="footer-right">
 
@@ -116,9 +153,9 @@ $.getJSON('https://api.coinmarketcap.com/v1/ticker/?convert=AUD&limit=10', funct
                 <p class="footer-links">
                     <a href="index.html">| Home  </a>
                     
-                    <a href="#"> | Blog  </a>
+                    <a href="#"> | Blog |  </a>
                     
-                    <a href="#"> | About | </a>
+                    <a href="https://github.com/Alt-Tracker/Alt-Tracker.github.io"> | About | </a>
                     
                 </p>
 
